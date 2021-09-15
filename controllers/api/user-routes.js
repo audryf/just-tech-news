@@ -95,7 +95,6 @@ router.post('/login', (req, res) => {
     }
 
     req.session.save(() => {
-      // declare session varibles
       req.session.user_id = dbUserData.id;
       req.session.username = dbUserData.username;
       req.session.loggedIn = true;
@@ -105,7 +104,6 @@ router.post('/login', (req, res) => {
   });
 });
 
-//logout
 router.post('/logout', (req, res) => {
   if (req.session.loggedIn) {
     req.session.destroy(() => {
@@ -127,7 +125,7 @@ router.put('/:id', (req, res) => {
     }
   })
     .then(dbUserData => {
-      if (!dbUserData[0]) {
+      if (!dbUserData) {
         res.status(404).json({ message: 'No user found with this id' });
         return;
       }
